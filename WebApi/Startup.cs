@@ -1,19 +1,11 @@
-using EventBus.RabbitMQ.Standard.Configuration;
-using EventBus.RabbitMQ.Standard.Options;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using SimpleLearn.ServicesConnection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace WebApi
 {
@@ -29,11 +21,8 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var rabbitMqOptions = Configuration.GetSection("RabbitMq").Get<RabbitMqOptions>();
-
-            services.AddRabbitMqConnection(rabbitMqOptions);
-            services.AddRabbitMqRegistration(rabbitMqOptions);
-
+            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(Assembly.Load("SimpleLearn.TutorialController"));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

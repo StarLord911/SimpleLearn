@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SimpleLearn.ServicesConnection;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SimpleLearn.TutorialController.Commands;
 using SimpleLearn.WebApi.Common.ApiData;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,11 +13,11 @@ namespace WebApi.Controllers
     [ApiController]
     public class TutorialController : ControllerBase
     {
-        private readonly IRabbitMqService _rabbitMqService;
+        private readonly IMediator _mediator;
 
-        public TutorialController(IRabbitMqService rabbitMqService)
+        public TutorialController(IMediator mediator)
         {
-            _rabbitMqService = rabbitMqService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -33,9 +35,9 @@ namespace WebApi.Controllers
 
         // POST api/<TutorialController>
         [HttpPost]
-        public void Post(ApiTutorial tutorial)
+        public async Task Post(ApiTutorial tutorial)
         {
-            _rabbitMqService.SendMessage("ghbdtn");
+            var res = await _mediator.Send(new AddTutorialCommand {Name = "AXMA" });
         }
     }
 }
