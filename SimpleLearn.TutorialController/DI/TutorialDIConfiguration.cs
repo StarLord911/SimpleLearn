@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using SimpleLearn.Persistance;
 using SimpleLearn.TutorialController.Services;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace SimpleLearn.TutorialController.DI
 {
-    public static class AutofacConfig
+    public static class TutorialDIConfiguration
     {
         public static void Configure(ContainerBuilder builder)
         {
             // Register your dependencies here
-            builder.RegisterType<SService>().As<ISService>();
+            builder.RegisterType<TutorialRepository>().As<ITutorialRepository>();
         }
     }
 }

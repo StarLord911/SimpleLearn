@@ -12,7 +12,7 @@ namespace SimpleLearn.Services.Common
     {
         public static void Register(ContainerBuilder builder)
         {
-            AutofacConfig.Configure(builder);
+            TutorialDIConfiguration.Configure(builder);
 
         }
     }

@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SimpleLearn.Data.Tutorial;
 using SimpleLearn.TutorialController.Commands;
+using SimpleLearn.TutorialController.Queryes;
 using SimpleLearn.WebApi.Common.ApiData;
 using System;
 using System.Collections.Generic;
@@ -15,12 +17,10 @@ namespace WebApi.Controllers
     public class TutorialController : ControllerBase
     {
         private readonly IMediator _mediator;
-        IService Service;
 
-        public TutorialController(IMediator mediator, IService service)
+        public TutorialController(IMediator mediator)
         {
             _mediator = mediator;
-            Service = service;
         }
 
         [Route("post")]
@@ -34,8 +34,14 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task Update(Guid tutorialGuid)
         {
-            Service.Do();
             await _mediator.Send(new UpdateTutorialCommand { Id = tutorialGuid });
+        }
+
+        [Route("get")]
+        [HttpGet]
+        public async Task<IEnumerable<Tutorial>> Get()
+        {
+            return await _mediator.Send(new GetTutorialsQuery());
         }
     }
 }

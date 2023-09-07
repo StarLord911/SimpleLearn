@@ -9,4 +9,13 @@
     <PackageReference Include="MediatR" Version="11.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleLearn.Data\SimpleLearn.Data.csproj" />
+    <ProjectReference Include="..\SimpleLearn.Persistance\SimpleLearn.Persistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Models\" />
+  </ItemGroup>
+
 </Project>

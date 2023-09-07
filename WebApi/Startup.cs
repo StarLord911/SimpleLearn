@@ -39,7 +39,6 @@ namespace WebApi
         public void ConfigureContainer(ContainerBuilder builder)
         {
             // Register your dependencies here.
-            builder.RegisterType<Service>().As<IService>();
             ServiceRegistrationHelper.Register(builder);
         }
 
