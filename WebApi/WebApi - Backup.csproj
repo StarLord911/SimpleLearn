@@ -6,14 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="7.1.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimpleLearn.Services.Common\SimpleLearn.Services.Common.csproj" />
     <ProjectReference Include="..\SimpleLearn.TutorialController\SimpleLearn.TutorialController.csproj" />
     <ProjectReference Include="..\SimpleLearn.WebApi.Common\SimpleLearn.WebApi.Common.csproj" />
   </ItemGroup>

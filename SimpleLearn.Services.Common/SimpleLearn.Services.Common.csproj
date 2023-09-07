@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+    <ProjectReference Include="..\SimpleLearn.TutorialController\SimpleLearn.TutorialController.csproj" />
   </ItemGroup>
 
 </Project>

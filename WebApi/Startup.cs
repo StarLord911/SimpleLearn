@@ -1,3 +1,5 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SimpleLearn.Services.Common;
 using System.Reflection;
+using WebApi.Controllers;
 
 namespace WebApi
 {
@@ -24,11 +28,19 @@ namespace WebApi
             services.AddMediatR(typeof(Startup));
             services.AddMediatR(Assembly.Load("SimpleLearn.TutorialController"));
 
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Register your dependencies here.
+            builder.RegisterType<Service>().As<IService>();
+            ServiceRegistrationHelper.Register(builder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

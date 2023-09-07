@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleLearn.TutorialController.Commands;
 using SimpleLearn.WebApi.Common.ApiData;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,30 +15,27 @@ namespace WebApi.Controllers
     public class TutorialController : ControllerBase
     {
         private readonly IMediator _mediator;
+        IService Service;
 
-        public TutorialController(IMediator mediator)
+        public TutorialController(IMediator mediator, IService service)
         {
             _mediator = mediator;
+            Service = service;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<TutorialController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<TutorialController>
+        [Route("post")]
         [HttpPost]
         public async Task Post(ApiTutorial tutorial)
         {
-            var res = await _mediator.Send(new AddTutorialCommand {Name = "AXMA" });
+            await _mediator.Send(new AddTutorialCommand { Name = tutorial.Name });
+        }
+
+        [Route("update")]
+        [HttpPost]
+        public async Task Update(Guid tutorialGuid)
+        {
+            Service.Do();
+            await _mediator.Send(new UpdateTutorialCommand { Id = tutorialGuid });
         }
     }
 }
